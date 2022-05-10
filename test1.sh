@@ -1,5 +1,6 @@
 #/bin/bash
-enter=""
+enter="
+"
 join() {	
 	echo -e "\033[1M"
 	echo -e "[5A"
@@ -64,6 +65,7 @@ signout() {
 input=""
 state=1
 statesn=1
+statejo=1
 userid=""
 title() {
 	echo "          ____   ___  ____ ___ _       _"
@@ -87,7 +89,7 @@ title() {
 	echo -n "             "
 	echo [44m "  SIGN OUT " [0m
 	read -s -n 3 input
-	if [  $input == "[A"  ]
+	if [  "$input" = "[A"  ]
 		then
 		join
 	fi
@@ -96,49 +98,53 @@ selectmain() {
 	while :
 	do
 		read -s -N1 input
-		if [  $input == ""  ]
+		if [  "$input" = ""  ]
 		then
 		read -s -n 1 input
-		if [  $input == "["  ]
+		if [  "$input" = "["  ]
 		then
 		read -s -n 1 input 
-		if [  $input == "B"  ] && [  $state == 1  ]
+		if [  "$input" = "B"  ] && [  $state == 1  ]
 			then
 			btexit
-		elif [  $input == "C"  ] && [  $state == 1  ]
+		elif [  "$input" = "C"  ] && [  $state == 1  ]
 			then
 			signin
-		elif [  $input == "D"  ] && [  $state == 2  ]
+		elif [  "$input" = "D"  ] && [  $state == 2  ]
 			then
 			join
-		elif [  $input == "B"  ] && [  $state == 2  ]
+		elif [  "$input" = "B"  ] && [  $state == 2  ]
 			then
 			signout
-		elif [  $input == "A"  ] && [  $state == 3  ]
+		elif [  "$input" = "A"  ] && [  $state == 3  ]
 			then
 			join
-		elif [  $input == "C"  ] && [  $state == 3  ]
+		elif [  "$input" = "C"  ] && [  $state == 3  ]
 			then
 			signout
-		elif [  $input == "A"  ] && [  $state == 4  ]
+		elif [  "$input" = "A"  ] && [  $state == 4  ]
 			then
 			signin
-		elif [  $input == "D"  ] && [  $state == 4  ]
+		elif [  "$input" = "D"  ] && [  $state == 4  ]
 			then
 			btexit
 		fi
 		fi
-		elif [  $input == "."  ] && [  $state == "3"  ]
+		elif [  "$input" = "$enter"  ] && [  $state == "3"  ]
 			then
 			exit
-		elif [  $input == "."  ] && [  $state == "2"  ]
+		elif [  "$input" = "$enter"  ] && [  $state == "2"  ]
 			then
 			titlesignin
 			selectsignin
-		elif [  $input == "."  ] && [  $state == "4"  ]
+		elif [  "$input" = "$enter"  ] && [  $state == "4"  ]
 			then
 			signoutfunc
 			selectsignout
+		elif [  "$input" = "$enter"  ] && [  $state == "1"  ]
+			then
+			joinmenu
+			selectjoin
 		fi
 	done
 }
@@ -355,58 +361,58 @@ selectsignin() {
 
 	while :
 	do
-		read -s -n 1 input
-		if [  $input == ""  ]
+		read -s -N1 input
+		if [  "$input" = ""  ]
 		then
 		read -s -n 1 input
-		if [  $input == "["  ]
+		if [  "$input" = "["  ]
 		then
 		read -s -n 1 input 
-		if [  $input == "B"  ] && [  $statesn == 1  ]
+		if [  "$input" = "B"  ] && [  $statesn == 1  ]
 			then
 			pw
-		elif [  $input == "C"  ] && [  $statesn == 1  ]
+		elif [  "$input" = "C"  ] && [  $statesn == 1  ]
 			then
 			dc
-		elif [  $input == "A"  ] && [  $statesn == 2  ]
+		elif [  "$input" = "A"  ] && [  $statesn == 2  ]
 			then
 			id
-		elif [  $input == "B"  ] && [  $statesn == 2  ]
+		elif [  "$input" = "B"  ] && [  $statesn == 2  ]
 			then
 			sn
-		elif [  $input == "B"  ] && [  $statesn == 3  ]
+		elif [  "$input" = "B"  ] && [  $statesn == 3  ]
 			then
 			ex
-		elif [  $input == "D"  ] && [  $statesn == 3  ]
+		elif [  "$input" = "D"  ] && [  $statesn == 3  ]
 			then
 			id
-		elif [  $input == "A"  ] && [  $statesn == 4  ]
+		elif [  "$input" = "A"  ] && [  $statesn == 4  ]
 			then
 			pw
-		elif [  $input == "C"  ] && [  $statesn == 4  ]
+		elif [  "$input" = "C"  ] && [  $statesn == 4  ]
 			then
 			ex
-		elif [  $input == "A"  ] && [  $statesn == 5  ]
+		elif [  "$input" = "A"  ] && [  $statesn == 5  ]
 			then
 			dc
-		elif [  $input == "D"  ] && [  $statesn == 5  ]
+		elif [  "$input" = "D"  ] && [  $statesn == 5  ]
 			then
 			sn
 		fi
 		fi
-		elif [  $input == "."  ] && [  $statesn == 5  ]
+		elif [  "$input" = "$enter"  ] && [  $statesn == "5"  ]
 			then
 			exit
-		elif [  $input == "."  ] && [  $statesn == 1  ]
+		elif [  "$input" = "$enter"  ] && [  $statesn == "1"  ]
 		then 
 			echo -e "\033[6A"
 			echo -n "      "
-			echo -n [44m "               " [0m
+			echo -n [41m "               " [0m
 			echo -n "   "
 			echo [44m " Duplicate check " [0m
 			echo ""
 			echo -n "      "
-			echo -n [44m "      PW       " [0m 
+			echo -n [44m "               " [0m 
 			echo ""
 			echo ""
 			echo -n "          "
@@ -414,55 +420,86 @@ selectsignin() {
 			echo -n "    "
 			echo -n [44m "  EXIT  "[0m
 			echo ""
-		if [  ! -e "userid1.txt"  ]
-		then
+		if [  ! -e "userid1.txt"  ]#7
+			then
 			touch userid1.txt
 			echo -e "\033[6A"
 			echo -n "      "
-			echo -n [44m
+			echo -n [41m
 			echo -n "    "
 			read userid
 			echo -n [0m
 			echo -n -e "\033[0B"
 			echo -n "      "
-			echo -n [44m
+			echo -n [41m
 			echo -n "    "
 			read userpw
-			echo -e "\033[0B"
-			echo -n [0m "          "
+			echo -e -n "\033[1B"
+			echo -n [0m "         "
 			echo -n [41m " SIGN IN " [0m
-			echo -e "$userid" > userid1.txt
-			echo -e "$userpw" >> userid1.txt
-			echo -e "\033[1B"
-			exit
-		
+			read -s -N1 input
+		if [  "$input" = "$enter"  ]#6
+			then
+			userid > userid1.txt
+			userpw >> userid1.txt
+		fi#6
 		else
 			touch userid2.txt
 			echo -e "\033[6A"
-			echo -n "      "
+			echo -n -e "\033[10C"
 			echo -n [44m
-			echo -n "    "
 			read userid
-			echo "                    "
-			echo -e "\033[1A"
 			echo -n [0m
-			echo -n -e "\033[0B"
-			echo -n "      "
-			echo -n [44m
-			echo -n "    "
-			read userpw
-			echo -n [0m
-			echo -e "\033[2B"
-			echo -n "          "
- 			echo -n [41m " SIGN IN "
-				echo -e "\033[0m"
-				echo -e "$userid" > userid2.txt
-				echo -e "$userpw" >> userid2.txt
-				echo -e "\033[1B"
+			echo -e -n "\033[1A"
+			echo -n -e "\033[26C"
+			echo [41m " Duplicate check " [0m
+			read -s -N1 input
+		if [  "$input" = "$enter"  ]#5
+			then
+		while read line#while
+		do
+		if [  "$line" = "userid"  ]#1
+			then	
+			echo -e -n "\033[6B"
+			echo "sign in OK"
+			exit
+		else
+			echo -e -n "\033[6B"
+			echo "sign in X"
+			exit
+		fi#1	
+		elif [  "$input" = ""  ]#5
+			then
+			read -s -n 1 input
+			if [  "$input" = "["  ]#4
+			then
+			read -s -n 1 input
+			if [  "$input" = "D"  ]#3
+				then
+				echo ""
+				echo -n "      "
+				echo -n [41m "               "
+				echo -n -e "\033[11D"
+				read userpw
+				echo -n [0m
+				echo -n -e "\033[1B"
+				echo -n "         "
+				echo [41m " SIGN IN "
+				read -s -N1 input
+			if [  "$input" = "$enter"  ]#2
+				then
+				touch userid2.txt
+				userid > userid2.txt
+				userpw >> userid2.txt
 				exit
+			fi#2
+			fi#3
+			fi#4
+		done < userid1.txt#done
+		fi#5
+		fi#7
 		fi
 			
-		fi	
 	done
 }
 signoutfunc() {
@@ -588,8 +625,143 @@ selectsignout() {
 			soso
 		fi
 		fi
-		elif [  $input == "."   ] && [  $stateso == 4  ]
+		elif [  "$input" = "$enter"   ] && [  $stateso == 4  ]
 		then
+			exit
+		fi
+done
+}
+joinmenu() {
+	echo "        _ ____    _     ___   ____ ___ _   _  "
+	echo "       / |  _ \\  | |   / _ \\ / ___|_ _| \\ | | "
+	echo "       | | |_) | | |  | | | | |  _ | ||  \\| | "
+	echo "       | |  __/  | |__| |_| | |_| || || |\\  | "
+	echo "       |_|_|     |____ \\___/ \\____|___|_| \\_| "
+	echo ""
+	echo ""
+	echo -n "         "
+	echo -n [44m "        ID        " [0m
+	echo ""
+	echo ""
+	echo -n "         "
+	echo -n [44m "        PW        " [0m
+	echo ""
+	echo ""
+	echo -n "       "
+	echo -n [44m " LOGIN " [0m 
+	echo -n "    "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
+	echo ""
+
+}
+joinid() {
+	echo -e "\033[7A"
+	echo -n "         "
+	echo -n [41m "        ID        " [0m
+	echo ""
+	echo ""
+	echo -n "         "
+	echo -n [44m "        PW        " [0m
+	echo ""
+	echo ""
+	echo -n "       "
+	echo -n [44m " LOGIN " [0m 
+	echo -n "    "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
+	echo ""
+	statejo=1
+}
+joinpw() {
+	echo -e "\033[7A"
+	echo -n "         "
+	echo -n [44m "        ID        " [0m
+	echo ""
+	echo ""
+	echo -n "         "
+	echo -n [41m "        PW        " [0m
+	echo ""
+	echo ""
+	echo -n "       "
+	echo -n [44m " LOGIN " [0m 
+	echo -n "    "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
+	echo ""
+	statejo=2
+}
+joinsn() {
+	echo -e "\033[7A"
+	echo -n "         "
+	echo -n [44m "        ID        " [0m
+	echo ""
+	echo ""
+	echo -n "         "
+	echo -n [44m "        PW        " [0m
+	echo ""
+	echo ""
+	echo -n "       "
+	echo -n [41m " LOGIN " [0m 
+	echo -n "    "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
+	echo ""
+	statejo=3
+}
+joinex() {
+	echo -e "\033[7A"
+	echo -n "         "
+	echo -n [44m "        ID        " [0m
+	echo ""
+	echo ""
+	echo -n "         "
+	echo -n [44m "        PW        " [0m
+	echo ""
+	echo ""
+	echo -n "       "
+	echo -n [44m " LOGIN " [0m 
+	echo -n "    "
+	echo -n [41m "  EXIT  " [0m
+	echo ""
+	echo ""
+	statejo=4
+}
+selectjoin() {
+	while :
+	do
+		read -s -N1 input
+		if [  $input == ""  ]
+		then
+		read -s -n 1 input
+		if [  $input == "["  ]
+		then
+		read -s -n 1 input 
+		if [  $input == "B"  ] && [  $statejo == 1  ]
+			then
+			joinpw
+		elif [  $input == "A"  ] && [  $statejo == 2  ]
+			then
+			joinid
+		elif [  $input == "B"  ] && [  $statejo == 2  ]
+			then
+			joinsn
+		elif [  $input == "A"  ] && [  $statejo == 3  ]
+			then
+			joinpw
+		elif [  $input == "C"  ] && [  $statejo == 3  ]
+			then
+			joinex
+		elif [  $input == "A"  ] && [  $statejo == 4  ]
+			then
+			joinpw
+		elif [  $input == "D"  ] && [  $statejo == 4  ]
+			then
+			joinsn
+		fi
+		fi
+		elif [  "$input" = "$enter"  ] && [  $statejo == 4  ]
+			then	
 			exit
 		fi
 done

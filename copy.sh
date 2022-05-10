@@ -442,6 +442,7 @@ selectsignin() {
 			then
 			userid > userid1.txt
 			userpw >> userid1.txt
+			exit
 		fi#6
 		else
 			touch userid2.txt
@@ -468,13 +469,13 @@ selectsignin() {
 			echo "sign in X"
 			exit
 		fi
-		done
+		done < userid1.txt
 		elif [  "$input" = ""  ]
 			then
 			read -s -n 1 input
 			if [  "$input" = "["  ]#4
-			then
-			read -s -n 1 input
+				then
+				read -s -n 1 input
 			if [  "$input" = "D"  ]#3
 				then
 				echo ""

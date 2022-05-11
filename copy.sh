@@ -356,7 +356,7 @@ dc() {
 	echo ""
 	statesn=3
 }
-
+file="userid1.txt"
 selectsignin() {
 
 	while :
@@ -412,7 +412,8 @@ selectsignin() {
 			echo [44m " Duplicate check " [0m
 			echo ""
 			echo -n "      "
-			echo -n [44m "               " [0m 
+			read -s -N1 input
+			echo -n [44m "      PW       " [0m 
 			echo ""
 			echo ""
 			echo -n "          "
@@ -420,84 +421,58 @@ selectsignin() {
 			echo -n "    "
 			echo -n [44m "  EXIT  "[0m
 			echo ""
-		if [  ! -e "userid1.txt"  ]#7
+		if [  ! -e "$file"  ]
 			then
+			touch userid1.txt
+			echo -e "\033[6A"
+			echo -n "      "
+			echo -n [41m
+			echo -n "                "
+			echo -n -e "\033[10D"
+			read userid
+			echo -n [0m
+			echo -n -e "\033[0B"
+			echo -n "      "
+			echo -n [41m
+			echo -n "               "
+			echo -n -e "\033[10D"
+			read userpw
+			echo -e -n "\033[1B"
+			echo -n [0m "         "
+			echo -n [41m " SIGN IN " [0m
+			read -s -N1 input
+			if [  "$input" = "$enter"  ]
+			then
+				userid > userid1.txt
+				userpw >> userid1.txt
+				exit
+			fi
+			else
 			touch userid1.txt
 			echo -e "\033[6A"
 			echo -n "      "
 			echo -n [41m
 			echo -n "    "
 			read userid
-			echo -n [0m
-			echo -n -e "\033[0B"
-			echo -n "      "
-			echo -n [41m
-			echo -n "    "
-			read userpw
-			echo -e -n "\033[1B"
-			echo -n [0m "         "
-			echo -n [41m " SIGN IN " [0m
-			read -s -N1 input
-		if [  "$input" = "$enter"  ]#6
-			then
-			userid > userid1.txt
-			userpw >> userid1.txt
-			exit
-		fi#6
-		else
-			touch userid2.txt
-			echo -e "\033[6A"
-			echo -n -e "\033[10C"
-			echo -n [44m
-			read userid
-			echo -n [0m
-			echo -e -n "\033[1A"
+			echo -n -e "\033[1A"
 			echo -n -e "\033[26C"
 			echo [41m " Duplicate check " [0m
 			read -s -N1 input
-		if [  "$input" = "$enter"  ]
-			then
-		while read line
-		do
-		if [  "$line" = "userid"  ]
-			then	
-			echo -e -n "\033[6B"
-			echo "sign in OK"
-			exit
-		else
-			echo -e -n "\033[6B"
-			echo "sign in X"
-			exit
-		fi
-		done < userid1.txt
-		elif [  "$input" = ""  ]
-			then
-			read -s -n 1 input
-			if [  "$input" = "["  ]#4
-				then
-				read -s -n 1 input
-			if [  "$input" = "D"  ]#3
-				then
-				echo ""
-				echo -n "      "
-				echo -n [41m "               "
-				echo -n -e "\033[11D"
-				read userpw
-				echo -n [0m
-				echo -n -e "\033[1B"
-				echo -n "         "
-				echo [41m " SIGN IN "
-				read -s -N1 input
 			if [  "$input" = "$enter"  ]
 				then
-				touch userid2.txt
-				userid > userid2.txt
-				userpw >> userid2.txt
-				exit
+				while read line
+				do
+				if [  "$line" = "$userid"  ]
+					then
+						echo "X"
+						exit
+				else
+						echo "OK"
+						exit
+					fi
+
+				done < "userid1.txt"
 			fi
-			fi
-			fi
-		fi
 		fi
 		fi	
 	done

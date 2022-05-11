@@ -420,7 +420,7 @@ selectsignin() {
 			echo -n "    "
 			echo -n [44m "  EXIT  "[0m
 			echo ""
-		if [  ! -e "userid1.txt"  ]#7
+		if [  -e "userid1.txt"  ]#7
 			then
 			touch userid1.txt
 			echo -e "\033[6A"
@@ -442,6 +442,7 @@ selectsignin() {
 			then
 			userid > userid1.txt
 			userpw >> userid1.txt
+			exit
 		fi#6
 		else
 			touch userid2.txt

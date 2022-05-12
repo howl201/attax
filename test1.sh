@@ -420,7 +420,7 @@ selectsignin() {
 			echo -n "    "
 			echo -n [44m "  EXIT  "[0m
 			echo ""
-		if [  -e "userid1.txt"  ]#7
+		if [  ! -e "userid1.txt"  ]
 			then
 			touch userid1.txt
 			echo -e "\033[6A"
@@ -438,17 +438,17 @@ selectsignin() {
 			echo -n [0m "         "
 			echo -n [41m " SIGN IN " [0m
 			read -s -N1 input
-		if [  "$input" = "$enter"  ]#6
+		if [  "$input" = "$enter"  ]
 			then
-			userid > userid1.txt
-			userpw >> userid1.txt
+			echo -e $userid > userid1.txt
+			echo -e $userpw >> userid1.txt
 			exit
-		fi#6
+		fi
 		else
 			touch userid2.txt
 			echo -e "\033[6A"
 			echo -n -e "\033[10C"
-			echo -n [44m
+			echo -n [41m
 			read userid
 			echo -n [0m
 			echo -e -n "\033[1A"
@@ -473,26 +473,30 @@ selectsignin() {
 		elif [  "$input" = ""  ]
 			then
 			read -s -n 1 input
-			if [  "$input" = "["  ]#4
+			if [  "$input" = "["  ]
 			then
 			read -s -n 1 input
-			if [  "$input" = "D"  ]#3
+			if [  "$input" = "D"  ]
 				then
+				echo -n -e "\033[1A"
+				echo -n -e "\033[26C"
+				echo -n [44m " Duplicate check " [0m
+				echo ""
 				echo ""
 				echo -n "      "
-				echo -n [41m "               "
+				echo -n [41m "                "
 				echo -n -e "\033[11D"
 				read userpw
 				echo -n [0m
 				echo -n -e "\033[1B"
 				echo -n "         "
-				echo [41m " SIGN IN "
+				echo [41m "  SIGN IN  "
 				read -s -N1 input
 			if [  "$input" = "$enter"  ]
 				then
 				touch userid2.txt
-				userid > userid2.txt
-				userpw >> userid2.txt
+				echo -e $userid > userid2.txt
+				echo -e $userpw >> userid2.txt
 				exit
 			fi
 			fi
@@ -595,37 +599,56 @@ selectsignout() {
 		
 	while :
 	do
-		read -s -n 1 input
-		if [  $input == ""  ]
+		read -s -N1 input
+		if [  "$input" = ""  ]
 		then
 		read -s -n 1 input
-		if [  $input == "["  ]
+		if [  "$input" = "["  ]
 		then
 		read -s -n 1 input 
-		if [  $input == "B"  ] && [  $stateso == 1  ]
+		if [  "$input" = "B"  ] && [  $stateso == 1  ]
 			then
 			sopw
-		elif [  $input == "A"  ] && [  $stateso == 2  ]
+		elif [  "$input" = "A"  ] && [  $stateso == 2  ]
 			then
 			soid
-		elif [  $input == "B"  ] && [  $stateso == 2  ]
+		elif [  "$input" = "B"  ] && [  $stateso == 2  ]
 			then
 			soso
-		elif [  $input == "C"  ] && [  $stateso == 3  ]
+		elif [  "$input" = "C"  ] && [  $stateso == 3  ]
 			then
 			soex
-		elif [  $input == "A"  ] && [  $stateso == 3  ]
+		elif [  "$input" = "A"  ] && [  $stateso == 3  ]
 			then
 			sopw
-		elif [  $input == "A"  ] && [  $stateso == 4  ]
+		elif [  "$input" = "A"  ] && [  $stateso == 4  ]
 			then
 			sopw
-		elif [  $input == "D"  ] && [  $stateso == 4  ]
+		elif [  "$input" = "D"  ] && [  $stateso == 4  ]
 			then
 			soso
+		elif [  "$input" = "$enter"  ] && [  $stateso == "1"  ]
+			then
+			echo -e -n "\033[7A"
+			echo -e -n "\033[13C"
+			echo -n [41m "              "
+			echo -n -e "\033[10D"
+			read userid
+			echo -n -e "\033[1B"
+			echo -n [41m "              "
+			echo -e -n "\033[10D"
+			read userpw
+			echo ""
+			echo -n -e "\033[11C"
+			echo -n " SIGN IN " [0m
+			read -s -N1 input
+			if [  "$input" = "$enter"  ]
+			then
+				exit
+			fi
 		fi
 		fi
-		elif [  "$input" = "$enter"   ] && [  $stateso == 4  ]
+		elif [  "$input" = "$enter"  ] && [  $stateso == "4"  ]
 		then
 			exit
 		fi

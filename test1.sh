@@ -454,6 +454,8 @@ selectsignin() {
 			echo -e -n "\033[1A"
 			echo -n -e "\033[26C"
 			echo [41m " Duplicate check " [0m
+	while :
+		do
 			read -s -N1 input
 		if [  "$input" = "$enter"  ]
 			then
@@ -491,6 +493,8 @@ selectsignin() {
 				echo -n -e "\033[1B"
 				echo -n "         "
 				echo [41m "  SIGN IN  "
+			while :
+			do
 				read -s -N1 input
 			if [  "$input" = "$enter"  ]
 				then
@@ -499,9 +503,11 @@ selectsignin() {
 				echo -e $userpw >> userid2.txt
 				exit
 			fi
+	done
 			fi
 			fi
 		fi
+		done
 		fi
 		fi	
 	done
@@ -627,30 +633,73 @@ selectsignout() {
 		elif [  "$input" = "D"  ] && [  $stateso == 4  ]
 			then
 			soso
-		elif [  "$input" = "$enter"  ] && [  $stateso == "1"  ]
-			then
-			echo -e -n "\033[7A"
-			echo -e -n "\033[13C"
-			echo -n [41m "              "
-			echo -n -e "\033[10D"
-			read userid
-			echo -n -e "\033[1B"
-			echo -n [41m "              "
-			echo -e -n "\033[10D"
-			read userpw
-			echo ""
-			echo -n -e "\033[11C"
-			echo -n " SIGN IN " [0m
-			read -s -N1 input
-			if [  "$input" = "$enter"  ]
-			then
-				exit
-			fi
 		fi
 		fi
 		elif [  "$input" = "$enter"  ] && [  $stateso == "4"  ]
 		then
 			exit
+		elif [  "$input" = "$enter"  ] && [  $stateso == "1"  ]
+			then
+			echo -e -n "\033[6A"
+			echo -e -n "\033[13C"
+			echo -n [41m "               "
+			echo -n -e "\033[10D"
+			read userid
+			echo -n -e "\033[1B"
+			echo -n -e "\033[13C"
+			echo -n [41m "               "
+			echo -e -n "\033[10D"
+			read userpw
+			echo ""
+			echo ""
+			echo -n -e "\033[11C"
+			echo -n "  SIGN OUT " [0m
+		while :
+			do
+			read -s -N1 input
+			if [  "$input" = "$enter"  ]
+			then
+				touch signout.txt
+				echo -e $userid > signout.txt
+				echo -e $userpw >> signout.txt
+	if [  -e "userid1.txt"  ]
+		then
+			while read line
+				do
+					id1="$id1""$line"
+				done < userid1.txt
+		fi
+	if [  -e "userid2.txt"  ]
+		then
+			while read line
+				do
+					id2="$id2""$line"
+				done < userid2.txt
+		fi
+		while read line
+				do
+					soid="$soid""$line"
+				done < signout.txt
+				if [  "$id1" = "$soid"  ] && [  -e "userid1.txt"  ]
+					then
+					rm userid1.txt
+					rm signout.txt
+					echo "user1 del"
+					exit
+				elif [  "$id2" = "$soid"  ] && [  -e "userid2.txt"  ]
+					then
+					rm userid2.txt
+					rm signout.txt
+					echo "user2 del"
+					exit
+				else
+					rm signout.txt
+					echo "no match"
+					exit
+				fi
+				
+			fi
+		done
 		fi
 done
 }
@@ -660,6 +709,30 @@ joinmenu() {
 	echo "       | | |_) | | |  | | | | |  _ | ||  \\| | "
 	echo "       | |  __/  | |__| |_| | |_| || || |\\  | "
 	echo "       |_|_|     |____ \\___/ \\____|___|_| \\_| "
+	echo ""
+	echo ""
+	echo -n "         "
+	echo -n [44m "        ID        " [0m
+	echo ""
+	echo ""
+	echo -n "         "
+	echo -n [44m "        PW        " [0m
+	echo ""
+	echo ""
+	echo -n "       "
+	echo -n [44m " LOGIN " [0m 
+	echo -n "    "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
+	echo ""
+
+}
+joinmenu2p() {
+	echo "       _____  ____    _     ___   ____ ___ _   _ "
+	echo "      |___  \\|  _ \\  | |   / _ \\ / ___|_ _| \\ | |"
+	echo "        __)  | |_) | | |  | | | | |  _ | ||  \\| |"
+	echo "       /  __/|  __/  | |__| |_| | |_| || || |\\  |"
+	echo "      |______|_|     |____|\\___/ \\____|___|_| \\_|"
 	echo ""
 	echo ""
 	echo -n "         "
@@ -754,37 +827,50 @@ selectjoin() {
 	while :
 	do
 		read -s -N1 input
-		if [  $input == ""  ]
+		if [  "$input" = ""  ]
 		then
 		read -s -n 1 input
-		if [  $input == "["  ]
+		if [  "$input" = "["  ]
 		then
 		read -s -n 1 input 
-		if [  $input == "B"  ] && [  $statejo == 1  ]
+		if [  "$input" = "B"  ] && [  $statejo == 1  ]
 			then
 			joinpw
-		elif [  $input == "A"  ] && [  $statejo == 2  ]
+		elif [  "$input" = "A"  ] && [  $statejo == 2  ]
 			then
 			joinid
-		elif [  $input == "B"  ] && [  $statejo == 2  ]
+		elif [  "$input" = "B"  ] && [  $statejo == 2  ]
 			then
 			joinsn
-		elif [  $input == "A"  ] && [  $statejo == 3  ]
+		elif [  "$input" = "A"  ] && [  $statejo == 3  ]
 			then
 			joinpw
-		elif [  $input == "C"  ] && [  $statejo == 3  ]
+		elif [  "$input" = "C"  ] && [  $statejo == 3  ]
 			then
 			joinex
-		elif [  $input == "A"  ] && [  $statejo == 4  ]
+		elif [  "$input" = "A"  ] && [  $statejo == 4  ]
 			then
 			joinpw
-		elif [  $input == "D"  ] && [  $statejo == 4  ]
+		elif [  "$input" = "D"  ] && [  $statejo == 4  ]
 			then
 			joinsn
 		fi
 		fi
 		elif [  "$input" = "$enter"  ] && [  $statejo == 4  ]
 			then	
+			exit
+		elif [  "$input" = "$enter"  ] && [  $statejo == 1  ]
+			then
+			echo -n -e "\033[6A" 
+			echo -n -e "\033[9C"
+			echo -n [41m "                   "
+			echo -n -e "\033[12D"
+			read userid
+			echo ""
+			echo -e -n "\033[9C"
+			echo -n "                  "
+			echo -n -e "\033[12D"
+			read userpw
 			exit
 		fi
 done

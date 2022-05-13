@@ -412,7 +412,7 @@ selectsignin() {
 			echo [44m " Duplicate check " [0m
 			echo ""
 			echo -n "      "
-			echo -n [44m "               " [0m 
+			echo -n [44m "      PW       " [0m 
 			echo ""
 			echo ""
 			echo -n "          "
@@ -432,11 +432,14 @@ selectsignin() {
 			echo -n -e "\033[0B"
 			echo -n "      "
 			echo -n [41m
-			echo -n "    "
+			echo -n "               "
+	  		echo -e -n "\033[11D"
 			read userpw
 			echo -e -n "\033[1B"
 			echo -n [0m "         "
 			echo -n [41m " SIGN IN " [0m
+	while :
+		do
 			read -s -N1 input
 		if [  "$input" = "$enter"  ]
 			then
@@ -444,6 +447,7 @@ selectsignin() {
 			echo -e $userpw >> userid1.txt
 			exit
 		fi
+		done
 		else
 			touch userid2.txt
 			echo -e "\033[6A"
@@ -461,17 +465,17 @@ selectsignin() {
 			then
 		while read line
 		do
-		if [  "$line" = "userid"  ]
+		if [  "$line" = "$userid"  ]
 			then	
-			echo -e -n "\033[6B"
-			echo "sign in OK"
-			exit
-		else
 			echo -e -n "\033[6B"
 			echo "sign in X"
 			exit
+		else
+			echo -e -n "\033[6B"
+			echo "sign in OK"
+			exit
 		fi
-		done
+		done < "userid1.txt"
 		elif [  "$input" = ""  ]
 			then
 			read -s -n 1 input
@@ -871,7 +875,34 @@ selectjoin() {
 			echo -n "                  "
 			echo -n -e "\033[12D"
 			read userpw
-			exit
+			touch join.txt
+			echo -e $userid > join.txt
+			echo -e $userpw >> join.txt
+	if [  -e "userid1.txt"  ]
+		then
+			while read line
+				do
+					id1="$id1""$line"
+				done < userid1.txt
+		fi
+	if [  -e "userid2.txt"  ]
+		then
+			while read line
+				do
+					id2="$id2""$line"
+				done < userid2.txt
+		fi
+		while read line
+				do
+					joid="$joid""$line"
+				done < join.txt
+			if [  "$id1" = "$joid"  ]
+				then 
+				joinmenu2p
+				selectjoin
+			else
+				exit
+			fi
 		fi
 done
 }

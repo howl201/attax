@@ -60,7 +60,23 @@ signout() {
 	echo [41m "  SIGN OUT " [0m
 	state=4
 }	
-
+empty() {
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo "                                                         "
+	echo -e -n "\033[13A"
+}
 
 input=""
 state=1
@@ -135,14 +151,20 @@ selectmain() {
 			exit
 		elif [  "$input" = "$enter"  ] && [  $state == "2"  ]
 			then
+			echo -e -n "\033[13A"
+			empty
 			titlesignin
 			selectsignin
 		elif [  "$input" = "$enter"  ] && [  $state == "4"  ]
 			then
+			echo -e -n "\033[13A"
+			empty
 			signoutfunc
 			selectsignout
 		elif [  "$input" = "$enter"  ] && [  $state == "1"  ]
 			then
+			echo -e -n "\033[13A"
+			empty
 			joinmenu
 			selectjoin
 		fi
@@ -688,17 +710,14 @@ selectsignout() {
 					then
 					rm userid1.txt
 					rm signout.txt
-					echo "user1 del"
 					exit
 				elif [  "$id2" = "$soid"  ] && [  -e "userid2.txt"  ]
 					then
 					rm userid2.txt
 					rm signout.txt
-					echo "user2 del"
 					exit
 				else
 					rm signout.txt
-					echo "no match"
 					exit
 				fi
 				
@@ -827,6 +846,19 @@ joinex() {
 	echo ""
 	statejo=4
 }
+success() {
+	echo "     ____  _   _  ____ ____ _____ ____ ____  "
+	echo "    / ___|| | | |/ ___/ ___| ____/ ___/ ___| "
+	echo "    \\___ \\| | | | |  | |   |  _| \\___ \\___ \\ "
+	echo "     ___) | |_| | |__| |___| |___ ___) |__) |"
+	echo "    |____/ \\___/ \\____\\____|_____|____/____/ "
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+}
+log2p=1
 selectjoin() {
 	while :
 	do
@@ -872,37 +904,62 @@ selectjoin() {
 			read userid
 			echo ""
 			echo -e -n "\033[9C"
-			echo -n "                  "
+			echo -n "                    "
 			echo -n -e "\033[12D"
 			read userpw
 			touch join.txt
 			echo -e $userid > join.txt
 			echo -e $userpw >> join.txt
+			echo ""
+			echo -e -n "\033[7C"
+			echo "  LOGIN  "[0m
+while :
+	do 
+	read -s -N1 input
+	if [  "$input" = "$enter"  ]
+	then
 	if [  -e "userid1.txt"  ]
 		then
 			while read line
 				do
-					id1="$id1""$line"
+					joid1="$joid1""$line"
 				done < userid1.txt
 		fi
 	if [  -e "userid2.txt"  ]
 		then
 			while read line
 				do
-					id2="$id2""$line"
+					joid2="$joid2""$line"
 				done < userid2.txt
 		fi
 		while read line
 				do
 					joid="$joid""$line"
 				done < join.txt
-			if [  "$id1" = "$joid"  ]
-				then 
+			if [  $joid1 == $joid  ] && [  $joid2 != $joid  ] && [  $log2p == 1  ]
+				then
+				unset joid1
+				unset joid2
+				unset joid
+				log2p=2
+				rm join.txt
+				echo -n -e "\033[13A"
+				empty  
 				joinmenu2p
 				selectjoin
+			elif [  $joid1 != $joid  ] && [  $joid2 == $joid  ] && [  $log2p == 2  ]
+				then
+				echo -e -n "\033[13A"
+				empty
+				success
+				rm join.txt
+				exit
 			else
+				rm join.txt
 				exit
 			fi
+	fi
+done
 		fi
 done
 }

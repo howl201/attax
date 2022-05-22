@@ -1,64 +1,122 @@
 #/bin/bash
 enter="
 "
-join() {	
-	echo -e "\033[1M"
-	echo -e "[5A"
+1plogin() {	
+	echo -e -n "\033[5A"
 	echo -n "          "
-	echo -n [41m "  JOIN   "
+	echo -n [41m " 1P LOGIN  "
 	echo -n [0m "            "
 	echo [44m "   SIGN IN " [0m
 	echo ""
 	echo -n "          "         
-	echo -n [44m "  EXIT  " [0m
+	echo -n [44m " 2P LOGIN " [0m
 	echo -n "             "
 	echo [44m "  SIGN OUT " [0m
+	echo ""
+	echo -n "          "
+	echo  -n [44m "  JOIN  " [0m
+	echo -n "     "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
 	state=1
+}
+2plogin() {	
+	echo -e -n "\033[5A"
+	echo -n "          "
+	echo -n [44m " 1P LOGIN  "
+	echo -n [0m "            "
+	echo [44m "   SIGN IN " [0m
+	echo ""
+	echo -n "          "         
+	echo -n [41m " 2P LOGIN " [0m
+	echo -n "             "
+	echo [44m "  SIGN OUT " [0m
+	echo ""
+	echo -n "          "
+	echo  -n [44m "  JOIN  " [0m
+	echo -n "     "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
+	state=3
 }
 
 signin() {
-	echo -e "\033[1M"
-	echo -e "[5A"
+	echo -e -n "\033[5A"
 	echo -n "          "
-	echo -n [44m "  JOIN   "
+	echo -n [44m " 1P LOGIN  "
 	echo -n [0m "            "
 	echo [41m "   SIGN IN " [0m
 	echo ""
 	echo -n "          "         
-	echo -n [44m "  EXIT  " [0m
+	echo -n [44m " 2P LOGIN " [0m
 	echo -n "             "
 	echo [44m "  SIGN OUT " [0m
+	echo ""
+	echo -n "          "
+	echo  -n [44m "  JOIN  " [0m
+	echo -n "     "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
 	state=2
 }
 
 btexit() {
-	echo -e "\033[1M"
-	echo -e "[5A"
+	echo -e -n "\033[5A"
 	echo -n "          "
-	echo -n [44m "  JOIN   "
+	echo -n [44m " 1P LOGIN  "
 	echo -n [0m "            "
 	echo [44m "   SIGN IN " [0m
 	echo ""
 	echo -n "          "         
-	echo -n [41m "  EXIT  " [0m
+	echo -n [44m " 2P LOGIN " [0m
 	echo -n "             "
 	echo [44m "  SIGN OUT " [0m
-	state=3
+	echo ""
+	echo -n "          "
+	echo  -n [44m "  JOIN  " [0m
+	echo -n "     "
+	echo -n [41m "  EXIT  " [0m
+	echo ""
+	state=6
 }
 
 signout() {
-	echo -e "\033[1M"
-	echo -e "[5A"
+	echo -e -n "\033[5A"
 	echo -n "          "
-	echo -n [44m "  JOIN   "
+	echo -n [44m " 1P LOGIN  "
 	echo -n [0m "            "
 	echo [44m "   SIGN IN " [0m
 	echo ""
 	echo -n "          "         
-	echo -n [44m "  EXIT  " [0m
+	echo -n [44m " 2P LOGIN " [0m
 	echo -n "             "
 	echo [41m "  SIGN OUT " [0m
+	echo ""
+	echo -n "          "
+	echo  -n [44m "  JOIN  " [0m
+	echo -n "     "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
 	state=4
+}	
+join() {
+	echo -e -n "\033[5A"
+	echo -n "          "
+	echo -n [44m " 1P LOGIN  "
+	echo -n [0m "            "
+	echo [44m "   SIGN IN " [0m
+	echo ""
+	echo -n "          "         
+	echo -n [44m " 2P LOGIN " [0m
+	echo -n "             "
+	echo [44m "  SIGN OUT " [0m
+	echo ""
+	echo -n "          "
+	echo  -n [41m "  JOIN  " [0m
+	echo -n "     "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
+	state=5
 }	
 empty() {
 	echo "                                                         "
@@ -75,7 +133,8 @@ empty() {
 	echo "                                                         "
 	echo "                                                         "
 	echo "                                                         "
-	echo -e -n "\033[13A"
+	echo "                                                         "
+	echo -e -n "\033[15A"
 }
 
 input=""
@@ -96,18 +155,24 @@ title() {
 	echo "         /_/   \\_\\_/_/   \\_\\/_/\\_\\/_/\\_\\"
 
 	echo -n "          "
-	echo -n [44m "  JOIN   "
+	echo -n [44m " 1P LOGIN  "
 	echo -n [0m "            "
 	echo [44m "   SIGN IN " [0m
 	echo ""
 	echo -n "          "         
-	echo -n [44m "  EXIT  " [0m
+	echo -n [44m " 2P LOGIN " [0m
 	echo -n "             "
 	echo [44m "  SIGN OUT " [0m
+	echo ""
+	echo -n "          "
+	echo  -n [44m "  JOIN  " [0m
+	echo -n "     "
+	echo -n [44m "  EXIT  " [0m
+	echo ""
 	read -s -n 3 input
 	if [  "$input" = "[A"  ] || [  "$input" = "[B"  ] || [  "$input" = "[C"  ] || [  "$input" = "[D"  ]
 		then
-			join
+			1plogin
 	fi
 }
 selectmain() {
@@ -122,28 +187,46 @@ selectmain() {
 				read -s -n 1 input 
 		if [  "$input" = "B"  ] && [  $state == 1  ]
 			then
-				btexit
+				2plogin
 		elif [  "$input" = "C"  ] && [  $state == 1  ]
 			then
 				signin
 		elif [  "$input" = "D"  ] && [  $state == 2  ]
 			then
-				join
+				1plogin
 		elif [  "$input" = "B"  ] && [  $state == 2  ]
 			then
 				signout
 		elif [  "$input" = "A"  ] && [  $state == 3  ]
 			then
-				join
+				1plogin
 		elif [  "$input" = "C"  ] && [  $state == 3  ]
 			then
 				signout
+		elif [  "$input" = "B"  ] && [  $state == 3  ]
+			then
+				join
 		elif [  "$input" = "A"  ] && [  $state == 4  ]
 			then
 				signin
 		elif [  "$input" = "D"  ] && [  $state == 4  ]
 			then
+				2plogin
+		elif [  "$input" = "B"  ] && [  $state == 4  ]
+			then
 				btexit
+		elif [  "$input" = "A"  ] && [  $state == 5  ]
+			then
+				2plogin
+		elif [  "$input" = "C"  ] && [  $state == 5  ]
+			then
+				btexit
+		elif [  "$input" = "A"  ] && [  $state == 6  ]
+			then
+				signout
+		elif [  "$input" = "D"  ] && [  $state == 6  ]
+			then
+				join
 		fi
 		fi
 		elif [  "$input" = "$enter"  ] && [  $state == "3"  ]
@@ -163,7 +246,7 @@ selectmain() {
 				selectsignout
 		elif [  "$input" = "$enter"  ] && [  $state == "1"  ]
 			then
-				echo -e -n "\033[13A"
+				echo -e -n "\033[15A"
 				empty
 				joinmenu
 				selectjoin

@@ -454,28 +454,38 @@ join() {
 	state=5
 }	
 empty() {
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo "                                                         "
-	echo -e -n "\033[21A"
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo "                                                                                    "
+	echo -e -n "\033[31A"
 }
 map1menu() {
 	echo "┌───┬───┬───┬───┬───┬───┬───┬───┐"
@@ -638,23 +648,23 @@ fightmap2() {
 	echo "         / ___ \| |/ ___ \  /  \  /  \   "
 	echo "        /_/   \_\_/_/   \_\/_/\_\/_/\_\  "
 	echo "      "
-	echo "		┌───┬───┬───┬───┬───┬───┬───┬───┐"
-	echo "		│   │   │   │   │   │   │   │   │"
-	echo "		├───┼───┼───┼───┼───┼───┼───┼───┤"
-	echo "		│   │   │   │   │   │   │   │   │"
-	echo "		├───┼───┼───┼───┼───┼───┼───┼───┤"
-	echo "		│   │   │   │   │   │   │   │   │"
-	echo "		├───┼───┼───┼───┼───┼───┼───┼───┤"
-	echo "		│   │   │   │   │   │   │   │   │"
-	echo "		├───┼───┼───┼───┼───┼───┼───┼───┤"
-	echo "		│   │   │   │   │   │   │   │   │"
-	echo "		├───┼───┼───┼───┼───┼───┼───┼───┤"
-	echo "		│   │   │   │   │   │   │   │   │"
-	echo "		├───┼───┼───┼───┼───┼───┼───┼───┤"
-	echo "		│   │   │   │   │   │   │   │   │"
-	echo "		├───┼───┼───┼───┼───┼───┼───┼───┤"
-	echo "		│   │   │   │   │   │   │   │   │"
-	echo "		└───┴───┴───┴───┴───┴───┴───┴───┘"
+	echo "      ┌───┬───┬───┬───┬───┬───┬───┬───┐"
+	echo "      │   │   │   │   │   │   │   │   │"
+	echo "      ├───┼───┼───┼───┼───┼───┼───┼───┤"
+	echo "      │   │   │   │   │   │   │   │   │"
+	echo "      ├───┼───┼───┼───┼───┼───┼───┼───┤"
+	echo "      │   │   │   │   │   │   │   │   │"
+	echo "      ├───┼───┼───┼───┼───┼───┼───┼───┤"
+	echo "      │   │   │   │   │   │   │   │   │"
+	echo "      ├───┼───┼───┼───┼───┼───┼───┼───┤"
+	echo "      │   │   │   │   │   │   │   │   │"
+	echo "      ├───┼───┼───┼───┼───┼───┼───┼───┤"
+	echo "      │   │   │   │   │   │   │   │   │"
+	echo "      ├───┼───┼───┼───┼───┼───┼───┼───┤"
+	echo "      │   │   │   │   │   │   │   │   │"
+	echo "      ├───┼───┼───┼───┼───┼───┼───┼───┤"
+	echo "      │   │   │   │   │   │   │   │   │"
+	echo "      └───┴───┴───┴───┴───┴───┴───┴───┘"
 	echo ""
 	echo "    1P : 0                               2P : 0"
 	echo -n -e "\033[16A"
@@ -710,9 +720,13 @@ selectmapmenu() {
 					fi
 			elif [  "$input" = "$enter"  ] && [  $statemap == 1  ]
 				then
+					echo -n -e "\033[31A"
+					empty
 					fightmap1
 			elif [  "$input" = "$enter"  ] && [  $statemap == 2  ]
 				then
+					echo -n -e "\033[31A"
+					empty
 					fightmap2
 			fi
 		done
@@ -812,19 +826,19 @@ selectmain() {
 		fi
 		elif [  "$input" = "$enter"  ] && [  $state == "2"  ]
 			then
-				echo -e -n "\033[15A"
+				echo -e -n "\033[31A"
 				empty
 				titlesignin
 				selectsignin
 		elif [  "$input" = "$enter"  ] && [  $state == "4"  ]
 			then
-				echo -e -n "\033[15A"
+				echo -e -n "\033[31A"
 				empty
 				signoutfunc
 				selectsignout
 		elif [  "$input" = "$enter"  ] && [  $state == "1"  ]
 			then
-				echo -e -n "\033[15A"
+				echo -e -n "\033[31A"
 				empty
 				joinmenu
 				1selectjoin
@@ -890,19 +904,19 @@ selectmain() {
 		fi
 		elif [  "$input" = "$enter"  ] && [  $state == "3"  ]
 			then
-				echo -e -n "\033[15A"
+				echo -e -n "\033[31A"
 				empty
 				joinmenu2p
 				2selectjoin
 		elif [  "$input" = "$enter"  ] && [  $state == "2"  ]
 			then
-				echo -e -n "\033[15A"
+				echo -e -n "\033[31A"
 				empty
 				titlesignin
 				selectsignin
 		elif [  "$input" = "$enter"  ] && [  $state == "4"  ]
 			then
-				echo -e -n "\033[15A"
+				echo -e -n "\033[31A"
 				empty
 				signoutfunc
 				selectsignout
@@ -968,13 +982,13 @@ selectmain() {
 		fi
 		elif [  "$input" = "$enter"  ] && [  $state == "2"  ]
 			then
-				echo -e -n "\033[15A"
+				echo -e -n "\033[31A"
 				empty
 				titlesignin
 				selectsignin
 		elif [  "$input" = "$enter"  ] && [  $state == "4"  ]
 			then
-				echo -e -n "\033[15A"
+				echo -e -n "\033[31A"
 				empty
 				signoutfunc
 				selectsignout
@@ -983,7 +997,7 @@ selectmain() {
 				exit
 		elif [  "$input" = "$enter"  ] && [  $state == "5"  ]
 			then
-				echo -e -n "\033[15A"
+				echo -e -n "\033[31A"
 				empty
 				lobby
 				selectlobby
@@ -1068,7 +1082,7 @@ selectlobby() {
 			exit
 	elif [  "$input" = "$enter"  ] && [  $statelobby == 1  ]
 		then
-			echo -n -e "\033[21A"
+			echo -n -e "\033[31A"
 			empty
 			selectmap
 			selectmapmenu
@@ -1866,7 +1880,7 @@ joinex() {
 												unset joid
 												log2p=2
 												rm join.txt
-												echo -n -e "\033[13A"
+												echo -n -e "\033[31A"
 												empty  
 												title
 												1selectmain
